@@ -1,0 +1,10 @@
+const express = require('express')
+const userRouter = require('./routers/userRouter')
+const tasksRouter = require('./routers/taskRouter')
+require('./db/mongoose')
+const app = express()
+app.use(express.json())
+app.use(userRouter)
+app.use(tasksRouter)
+const port = process.env.PORT || 8000
+app.listen(port, () => console.log('server running on ', port))
