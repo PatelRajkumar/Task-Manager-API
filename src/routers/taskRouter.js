@@ -19,8 +19,8 @@ router.post('/tasks', auth, async(req, res) => {
 router.get('/tasks', auth, async(req, res) => {
     try {
         // const data = await Task.find()
-        const task = await Task.findOne({ owner: req.user._id })
-        res.status(201).send(ta)
+        const task = await Task.find({ owner: req.user._id })
+        res.status(201).send(task)
     } catch (error) {
         res.status(500).send(error)
     }
@@ -32,14 +32,14 @@ router.get('/tasks/:id', auth, async(req, res) => {
         const _id = req.params.id
         const task = await Task.findOne({ _id, owner: req.user._id })
         if (!task) {
-            return res.status(404).send("jgj")
+            return res.status(404).send()
         }
         res.status(201).send(task)
     } catch (error) {
         res.status(404).send(error)
     }
 })
-router.patch('/tasks/:id', async(req, res) => {
+router.patch('/tasks/:id', auth, async(req, res) => {
     const allowdUpdates = ['task', 'completed']
     const updates = Object.keys(req.body)
     const isValidOperation = updates.every((update) => { return allowdUpdates.includes(update) })
