@@ -6,5 +6,5 @@ const app = express()
 app.use(express.json())
 app.use(userRouter)
 app.use(tasksRouter)
-const port = process.env.PORT || 8000
+const port = process.env.PORT
 app.listen(port, () => console.log('server running on ', port))
